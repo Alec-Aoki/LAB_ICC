@@ -44,8 +44,18 @@ Intersec_AB:
     -> Ordene_Elementos vetor Intersec
 */
 
-Leia_Elementos(){
+int *Leia_Elementos(int tam){
+    int *ponteiro_Leia;
+    ponteiro_Leia = (int *)calloc(tam, sizeof(int));
+    if (*ponteiro_Leia == NULL){
+        printf("Deu ruim no calloc\n");
+        exit(1);
+    }
+    for (int i=0; i<tam; i++){
+        scanf(" %d", ponteiro_Leia[i]);
+    }
 
+    return ponteiro_Leia;
 }
 
 Ordene_Elementos(){
@@ -61,6 +71,14 @@ Intersec_AB(){
 }
 
 int main(void){
+    int tam_A, tam_B, *ponteiro_A, *ponteiro_B;
+    scanf(" %d", &tam_A);
 
+    ponteiro_A = Leia_Elementos(tam_A);
+
+    for (int i=0; i<tam_A; i++){
+        printf(" %d", ponteiro_A[i]);
+    }
+    printf("\n");
     return 0;
 }
