@@ -61,11 +61,10 @@ int *Leia_Elementos(int tam){
     return ponteiro_Leia;
 }
 
-void Ordene_Elementos(int tam, int *ponteiro_Ordene){
+void Ordene_Elementos(int tam, int **ponteiro_Ordene){
     int aux;
     for (int i=0; i<tam; i++){
         for (int j=1; j<tam; j++){
-            printf("%d\n", *(ponteiro_Ordene+j));
             if (*(ponteiro_Ordene+j) < *(ponteiro_Ordene+(j-1))){
                 aux = *(ponteiro_Ordene+j);
                 *(ponteiro_Ordene+j) = *(ponteiro_Ordene+(j-1));
@@ -95,7 +94,7 @@ int main(void){
     //ponteiro_B recebe o endereço do começo do vetor na heap
     ponteiro_B = Leia_Elementos(tam_B);
 
-    Ordene_Elementos(tam_A, *ponteiro_A);
+    Ordene_Elementos(tam_A, &ponteiro_A);
 
     return 0;
 }
