@@ -60,15 +60,15 @@ int *Leia_Elementos(int tam){
     return ponteiro_Leia;
 }
 
-void Ordene_Elementos(int tam, int **ponteiro_Ordene){
+void Ordene_Elementos(int tam, int *ponteiro_Ordene){
     int aux;
     //Bubblesort
     for (int i=0; i<tam; i++){
         for (int j=1; j<tam; j++){
-            if (*(ponteiro_Ordene+j) < *(ponteiro_Ordene+(j-1))){
-                aux = *(ponteiro_Ordene+j);
-                *(ponteiro_Ordene+j) = *(ponteiro_Ordene+(j-1));
-                *(ponteiro_Ordene+(j-1)) = aux;
+            if (ponteiro_Ordene[j] < ponteiro_Ordene[j-1]){
+                aux = ponteiro_Ordene[j];
+                ponteiro_Ordene[j] = ponteiro_Ordene[j-1];
+                ponteiro_Ordene[j-1] = aux;
             }
         }
     }
@@ -86,24 +86,33 @@ void Ordene_Elementos(int tam, int **ponteiro_Ordene){
 int main(void){
     int tam_A, tam_B, *ponteiro_A, *ponteiro_B;
 
+    printf("Tamanho de A:\n");
     scanf(" %d", &tam_A);
     //ponteiro_A recebe o endereço do começo do vetor na heap
+    printf("Digite os elementos de A:\n");
     ponteiro_A = Leia_Elementos(tam_A);
 
+    printf("Tamanho de B:\n");
     scanf(" %d", &tam_B);
     //ponteiro_B recebe o endereço do começo do vetor na heap
+    printf("Digite os elementos de B:\n");
     ponteiro_B = Leia_Elementos(tam_B);
 
-    Ordene_Elementos(tam_A, &ponteiro_A);
-    Ordene_Elementos(tam_B, &ponteiro_B);
+    printf("Ordenando A\n");
+    Ordene_Elementos(tam_A, ponteiro_A);
+    printf("Feito\n");
 
-    int *ponteiro_Uniao, *ponteiro_Intersec;
+    printf("Ordenando B\n");
+    Ordene_Elementos(tam_B, ponteiro_B);
+    printf("Feito\n");
+
+    //int *ponteiro_Uniao, *ponteiro_Intersec;
 
     //ponteiro_Uniao = Uniao_AB(tam_A, ponteiro_A);
 
-    for (int i=0; i<tam_A; i++){
-        printf("%d ", *(ponteiro_Uniao+i));
-    }
+    // for (int i=0; i<tam_A; i++){
+    //     printf("%d ", *(ponteiro_Uniao+i));
+    // }
 
     return 0;
 }
