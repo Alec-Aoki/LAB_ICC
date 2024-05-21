@@ -19,6 +19,7 @@ main:
 -> ler tamanho dos vetores
 -> receber comeco dos vetores em dois ponteiros diferentes
 -> criar vetor pra uniao e interseccao
+-> ordernar elementos da uniao e interseccao
 
 Leia_Elementos:
 -> calloc
@@ -30,18 +31,18 @@ Ordene_Elementos:
 -> return nada
 
 Uniao_AB:
+-> criar vetor Uniao
+    -> do tamamho de A
 -> jogar A no vetor Uniao
 -> verificar se o elemento de B ja existe em Uniao
     -> se sim: fodase
-    -> se nao: colocar no vetor Uniao
-    -> Ordene_Elementos vetor Uniao
+    -> se nao: add um espaço no Uniao e colocar o valor
 
 Intersec_AB:
 -> jogar A no vetor Intersec
 -> verificar se o elemento de B ja existe em Intersec
     -> se sim: tirar do Intersec
     -> se nao: colocar no vetor Intersec
-    -> Ordene_Elementos vetor Intersec
 */
 
 int *Leia_Elementos(int tam){
@@ -49,7 +50,6 @@ int *Leia_Elementos(int tam){
     ponteiro_Leia = (int *)calloc(tam, sizeof(int));
     // acabamos de criar o vetor na memória heap
     if (ponteiro_Leia == NULL){
-        printf("Deu ruim no calloc\n");
         exit(1);
     }
     printf("Deu bom no calloc\n");
@@ -63,6 +63,7 @@ int *Leia_Elementos(int tam){
 
 void Ordene_Elementos(int tam, int **ponteiro_Ordene){
     int aux;
+    //Bubblesort
     for (int i=0; i<tam; i++){
         for (int j=1; j<tam; j++){
             if (*(ponteiro_Ordene+j) < *(ponteiro_Ordene+(j-1))){
@@ -75,9 +76,19 @@ void Ordene_Elementos(int tam, int **ponteiro_Ordene){
     return;
 }
 
-// Uniao_AB(){
+int *Uniao_AB(int tam, int *ponteiro_Uniao){
+    int *pvet_Uniao;
+    pvet_Uniao = (int *)calloc(tam, sizeof(int));
+    if (pvet_Uniao == NULL){
+        printf("Erro no calloc\n");
+        exit(1);
+    }
+    for (int i=0; i<tam; i++){
+        *pvet_Uniao = *(ponteiro_Uniao+i);
+    }
 
-// }
+    return pvet_Uniao;
+}
 
 // Intersec_AB(){
 
@@ -95,6 +106,15 @@ int main(void){
     ponteiro_B = Leia_Elementos(tam_B);
 
     Ordene_Elementos(tam_A, &ponteiro_A);
+    Ordene_Elementos(tam_B, &ponteiro_B);
+
+    int *ponteiro_Uniao, *ponteiro_Intersec;
+
+    ponteiro_Uniao = Uniao_AB(tam_A, ponteiro_A);
+
+    for (int i=0; i<tam_A; i++){
+        printf("%d ", ponteiro_Uniao);
+    }
 
     return 0;
 }
