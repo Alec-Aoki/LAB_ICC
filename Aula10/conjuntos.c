@@ -63,6 +63,7 @@ void Ordene_Elementos(int tam, int **ponteiro_Ordene){
     int aux;
     for (int i=0; i<tam; i++){
         for (int j=1; j<tam; j++){
+            printf("%d\n", **(ponteiro_Ordene+j));
             if (**(ponteiro_Ordene+j) < **(ponteiro_Ordene+(j-1))){
                 aux = **(ponteiro_Ordene+j);
                 **(ponteiro_Ordene+j) = **(ponteiro_Ordene+(j-1));
