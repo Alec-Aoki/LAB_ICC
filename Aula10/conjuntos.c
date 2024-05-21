@@ -75,7 +75,8 @@ void Ordene_Elementos(int tam, int *ponteiro_Ordene){
     return;
 }
 
-int *Uniao_AB(int tam, int *ponteiro_Uniao){
+int *Uniao_AB(int tam_A, int tam_B, int *ponteiro_UA, int *ponteiro_UB){
+    int flag = 0;
 /*
 -> criar vetor Uniao
     -> do tamamho de A
@@ -84,11 +85,6 @@ int *Uniao_AB(int tam, int *ponteiro_Uniao){
     -> se sim: fodase
     -> se nao: add um espaço no Uniao e colocar o valor*/
     int *pont_vet_Uniao;
-    pont_vet_Uniao = (int *)calloc(tam, sizeof(int));
-
-    for (int i=0; i<tam; i++){
-        pont_vet_Uniao[i] = ponteiro_Uniao[i];
-    }
 
     return pont_vet_Uniao;
 }
@@ -112,20 +108,17 @@ int main(void){
     printf("Digite os elementos de B:\n");
     ponteiro_B = Leia_Elementos(tam_B);
 
-    printf("Ordenando A\n");
     Ordene_Elementos(tam_A, ponteiro_A);
-    printf("Feito\n");
-
-    printf("Ordenando B\n");
     Ordene_Elementos(tam_B, ponteiro_B);
+
     printf("Feito\n");
 
     int *ponteiro_Uniao, *ponteiro_Intersec;
 
-    ponteiro_Uniao = Uniao_AB(tam_A, ponteiro_A);
+    ponteiro_Uniao = Uniao_AB(tam_A, tam_B, ponteiro_A, ponteiro_B);
 
     for (int i=0; i<tam_A; i++){
-         printf("%d ", *(ponteiro_Uniao[i]));
+         printf("%d ", ponteiro_Uniao[i]);
     }
 
     free(ponteiro_Uniao);
