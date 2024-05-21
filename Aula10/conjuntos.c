@@ -44,6 +44,22 @@ Intersec_AB:
     -> Ordene_Elementos vetor Intersec
 */
 
+Leia_Elementos(){
+
+}
+
+Ordene_Elementos(){
+
+}
+
+Uniao_AB(){
+
+}
+
+Intersec_AB(){
+
+}
+
 int main(void){
 
     return 0;
