@@ -52,7 +52,6 @@ int *Leia_Elementos(int tam){
     if (ponteiro_Leia == NULL){
         exit(1);
     }
-    printf("Deu bom no calloc\n");
     //leitura dos elementos do vetor:
     for (int i=0; i<tam; i++){
         scanf(" %d", ponteiro_Leia+i);
@@ -84,7 +83,7 @@ int *Uniao_AB(int tam, int *ponteiro_Uniao){
         exit(1);
     }
     for (int i=0; i<tam; i++){
-        *pvet_Uniao = *(ponteiro_Uniao+i);
+        *(pvet_Uniao+i) = *(ponteiro_Uniao+i);
     }
 
     return pvet_Uniao;
