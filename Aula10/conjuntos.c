@@ -75,19 +75,9 @@ void Ordene_Elementos(int tam, int **ponteiro_Ordene){
     return;
 }
 
-int *Uniao_AB(int tam, int *ponteiro_Uniao){
-    int *pvet_Uniao;
-    pvet_Uniao = (int *)calloc(tam, sizeof(int));
-    if (pvet_Uniao == NULL){
-        printf("Erro no calloc\n");
-        exit(1);
-    }
-    for (int i=0; i<tam; i++){
-        *(pvet_Uniao+i) = *(ponteiro_Uniao+i);
-    }
+// int *Uniao_AB(){
 
-    return pvet_Uniao;
-}
+// }
 
 // Intersec_AB(){
 
@@ -109,10 +99,10 @@ int main(void){
 
     int *ponteiro_Uniao, *ponteiro_Intersec;
 
-    ponteiro_Uniao = Uniao_AB(tam_A, ponteiro_A);
+    //ponteiro_Uniao = Uniao_AB(tam_A, ponteiro_A);
 
     for (int i=0; i<tam_A; i++){
-        printf("%d ", ponteiro_Uniao);
+        printf("%d ", *(ponteiro_Uniao+i));
     }
 
     return 0;
