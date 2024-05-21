@@ -59,9 +59,19 @@ int *Leia_Elementos(int tam){
     return ponteiro_Leia;
 }
 
-// Ordene_Elementos(){
-
-// }
+void Ordene_Elementos(int tam, int **ponteiro_Ordene){
+    int aux;
+    for (int i=0; i<tam; i++){
+        for (int j=1; j<tam; j++){
+            if (**(ponteiro_Ordene+j) < **(ponteiro_Ordene+(j-1))){
+                aux = **(ponteiro_Ordene+j);
+                **(ponteiro_Ordene+j) = **(ponteiro_Ordene+(j-1));
+                **(ponteiro_Ordene+(j-1)) = aux;
+            }
+        }
+    }
+    return;
+}
 
 // Uniao_AB(){
 
@@ -73,13 +83,14 @@ int *Leia_Elementos(int tam){
 
 int main(void){
     int tam_A, tam_B, *ponteiro_A, *ponteiro_B;
-    scanf(" %d", &tam_A);
 
+    scanf(" %d", &tam_A);
     ponteiro_A = Leia_Elementos(tam_A);
 
-    for (int i=0; i<tam_A; i++){
-        printf("%d", *(ponteiro_A+i));
-    }
-    printf("\n");
+    scanf(" %d", &tam_B);
+    ponteiro_B = Leia_Elementos(tam_B);
+
+    Ordene_Elementos(tam_A, &ponteiro_A);
+
     return 0;
 }
