@@ -278,12 +278,6 @@ int main(void){
     
     Imprima_Resultados(tam_A, tam_B, tam_Uniao, tam_Diff, ponteiro_A, ponteiro_B, ponteiro_Uniao, ponteiro_Diff);
 
-    printf("Interseccao: ");
-    for (int i=0; i<tam_Intersec; i++){
-        printf("%d ", ponteiro_Intersec[i]);
-    }
-    printf("\n");
-
     free(ponteiro_Uniao);
     free(ponteiro_Intersec);
     free(ponteiro_Diff);
