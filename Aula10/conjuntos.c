@@ -164,19 +164,55 @@ int *Diferenca_UI(int *tam_Diff, int tam_Uniao, int tam_Intersec, int *ponteiro_
     return ponteiro_Diff;
 }
 
+void Imprima_Resultados(int tam_A, int tam_B, int tam_Uniao, int tam_Diff, int *ponteiro_A, int *ponteiro_B, int *ponteiro_Uniao, int *ponteiro_Diff){
+    printf("conjunto A: ");
+    for (int i=0; i<tam_A; i++){
+        if (i!=(tam_A-1)){
+            printf("%d ", ponteiro_A[i]);
+        }
+        else {
+            printf("%d\n", ponteiro_A[i]);
+        }
+    }
+
+    printf("conjunto B: ");
+    for (int i=0; i<tam_B; i++){
+        if (i!=(tam_B-1)){
+            printf("%d ", ponteiro_B[i]);
+        }
+        else {
+            printf("%d\n", ponteiro_B[i]);
+        }
+    }
+
+    printf("A uniao B: ");
+    for (int i=0; i<tam_Uniao; i++){
+        if (i!=(tam_Uniao-1)){
+            printf("%d ", ponteiro_Uniao[i]);
+        }
+        else {
+            printf("%d\n", ponteiro_Uniao[i]);
+        }
+    }
+
+    printf("(A uniao B) - (A interseccao B): ");
+    for (int i=1; i<tam_Diff; i++){
+        if (i!=(tam_Diff-1)){
+            printf("%d ", ponteiro_Diff[i]);
+        }
+        else {
+            printf("%d\n", ponteiro_Diff[i]);
+        }
+    }
+}
+
 int main(void){
     int tam_A, tam_B, *ponteiro_A, *ponteiro_B;
-
-    printf("Tamanho de A:\n");
     scanf(" %d", &tam_A);
     //ponteiro_A recebe o endereço do começo do vetor na heap
-    printf("Digite os elementos de A:\n");
     ponteiro_A = Leia_Elementos(tam_A);
-
-    printf("Tamanho de B:\n");
     scanf(" %d", &tam_B);
     //ponteiro_B recebe o endereço do começo do vetor na heap
-    printf("Digite os elementos de B:\n");
     ponteiro_B = Leia_Elementos(tam_B);
 
     int *ponteiro_Uniao, *ponteiro_Intersec;
@@ -185,10 +221,6 @@ int main(void){
     ponteiro_Uniao = Uniao_AB(&tam_Uniao, tam_A, tam_B, ponteiro_A, ponteiro_B);
     //ordenando o vetor Uniao
     Ordene_Elementos(tam_Uniao, ponteiro_Uniao);
-    printf("Uniao:\n");
-    for (int i=0; i<tam_Uniao; i++){
-        printf("%d\n", ponteiro_Uniao[i]);
-    }
     //mesma coisa, so que com o Intersec
     ponteiro_Intersec = Intersec_AB(&tam_Intersec, tam_A, tam_B, ponteiro_A, ponteiro_B);
     Ordene_Elementos(tam_Intersec, ponteiro_Intersec);
@@ -198,10 +230,7 @@ int main(void){
     //ponteiro_Diff aponta para o começo do vetor Diff na heap
     ponteiro_Diff = Diferenca_UI(&tam_Diff, tam_Uniao, tam_Intersec, ponteiro_Uniao, ponteiro_Intersec);
     
-    printf("Diferenca:\n");
-    for (int i=1; i<tam_Diff; i++){
-        printf("%d\n", ponteiro_Diff[i]);
-    }
+    Imprima_Resultados(tam_A, tam_B, tam_Uniao, tam_Diff, ponteiro_A, ponteiro_B, ponteiro_Uniao, ponteiro_Diff);   
 
     free(ponteiro_Uniao);
     free(ponteiro_Intersec);
