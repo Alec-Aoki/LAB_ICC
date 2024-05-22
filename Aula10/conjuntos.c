@@ -233,9 +233,11 @@ int main(void){
     scanf(" %d", &tam_A);
     //ponteiro_A recebe o endereço do começo do vetor na heap
     ponteiro_A = Leia_Elementos(tam_A);
+    Ordene_Elementos(tam_A, ponteiro_A);
     scanf(" %d", &tam_B);
     //ponteiro_B recebe o endereço do começo do vetor na heap
     ponteiro_B = Leia_Elementos(tam_B);
+    Ordene_Elementos(tam_B, ponteiro_B);
 
     int *ponteiro_Uniao, *ponteiro_Intersec;
     int tam_Uniao, tam_Intersec;
