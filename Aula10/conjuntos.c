@@ -131,18 +131,15 @@ int main(void){
     printf("Digite os elementos de B:\n");
     ponteiro_B = Leia_Elementos(tam_B);
 
-    Ordene_Elementos(tam_A, ponteiro_A);
-    Ordene_Elementos(tam_B, ponteiro_B);
-
     int *ponteiro_Uniao, *ponteiro_Intersec;
     int tam_Uniao;
 
+    //ponteiro_Uniao aponta para o começo do vetor Uniao na heap
     ponteiro_Uniao = Uniao_AB(&tam_Uniao, tam_A, tam_B, ponteiro_A, ponteiro_B);
+    //ordenando o vetor Uniao
+    Ordene_Elementos(tam_Uniao, ponteiro_Uniao);
 
-    for (int i=0; i<tam_Uniao; i++){
-         printf("%d ", ponteiro_Uniao[i]);
-    }
-    
+
     free(ponteiro_Uniao);
     free(ponteiro_Intersec);
     return 0;
