@@ -77,13 +77,13 @@ void Ordene_Elementos(int tam, int *ponteiro_Ordene){
 
 int *Uniao_AB(int *tam_Uniao, int tam_A, int tam_B, int *ponteiro_UA, int *ponteiro_UB){
     int flag = 0, tam_novo=tam_A;
-/*
--> criar vetor Uniao
-    -> do tamamho de A
--> jogar A no vetor Uniao
--> verificar se o elemento de B ja existe em Uniao
-    -> se sim: fodase
-    -> se nao: add um espaço no Uniao e colocar o valor*/
+    /*
+    -> criar vetor Uniao
+        -> do tamamho de A
+    -> jogar A no vetor Uniao
+    -> verificar se o elemento de B ja existe em Uniao
+        -> se sim: fodase
+        -> se nao: add um espaço no Uniao e colocar o valor*/
     int *pont_vet_Uniao;
     pont_vet_Uniao = (int *)calloc(tam_A, sizeof(int));
 
@@ -112,9 +112,39 @@ int *Uniao_AB(int *tam_Uniao, int tam_A, int tam_B, int *ponteiro_UA, int *ponte
     return pont_vet_Uniao;
 }
 
-// Intersec_AB(){
+int *Intersec_AB(int *tam_Intersec, int tam_A, int tam_B, int *ponteiro_UA, int *ponteiro_UB){
+    int tam_novo=tam_A;
+    int *aux;
+    //vai ser basicamente o Uniao, so mudando a logica do if else
+    /*
+    Intersec_AB:
+    -> jogar A no vetor Intersec
+    -> verificar se o elemento de B ja existe em Intersec
+        -> se sim: tirar do Intersec
+        -> se nao: colocar no vetor Intersec*/
+    int *pont_vet_Intersec;
+    pont_vet_Intersec = (int *)calloc(tam_A, sizeof(int));
 
-// }
+    //jogando os valores de A em Intersec
+    for (int i=0; i<tam_A; i++){
+        pont_vet_Intersec[i] = ponteiro_UA[i];
+    }
+
+    for (int i=0; i<tam_B; i++){
+        for (int j=0; j<tam_A; j++){
+            if (ponteiro_UB[i] == pont_vet_Intersec[j]) {
+                aux = &pont_vet_Intersec[j];
+                free(aux);
+                tam_novo -= 1;
+                pont_vet_Intersec = (int *)realloc(pont_vet_Intersec, tam_novo*sizeof(int));
+            }
+        }
+    }
+
+    *tam_Intersec = tam_novo;
+
+    return pont_vet_Intersec;
+}
 
 int main(void){
     int tam_A, tam_B, *ponteiro_A, *ponteiro_B;
@@ -132,12 +162,20 @@ int main(void){
     ponteiro_B = Leia_Elementos(tam_B);
 
     int *ponteiro_Uniao, *ponteiro_Intersec;
-    int tam_Uniao;
+    int tam_Uniao, tam_Intersec;
 
     //ponteiro_Uniao aponta para o começo do vetor Uniao na heap
     ponteiro_Uniao = Uniao_AB(&tam_Uniao, tam_A, tam_B, ponteiro_A, ponteiro_B);
     //ordenando o vetor Uniao
     Ordene_Elementos(tam_Uniao, ponteiro_Uniao);
+
+    //mesma coisa, so que com o Intersec
+    ponteiro_Intersec = Intersec_AB(&tam_Intersec, tam_A, tam_B, ponteiro_A, ponteiro_B);
+    Ordene_Elementos(tam_Intersec, ponteiro_Intersec);
+
+    for (int i=0; i<tam_Intersec; i++){
+        printf("%d\n", ponteiro_Intersec[i]);
+    }
 
 
     free(ponteiro_Uniao);
