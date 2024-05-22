@@ -54,7 +54,7 @@ int *Leia_Elementos(int tam){
     }
     //leitura dos elementos do vetor:
     for (int i=0; i<tam; i++){
-        scanf(" %d", ponteiro_Leia[i]);
+        scanf(" %d", &ponteiro_Leia[i]);
     }
     //retornando o endereço do começo do vetor na heap:
     return ponteiro_Leia;
@@ -178,7 +178,6 @@ int main(void){
     //ponteiro_B recebe o endereço do começo do vetor na heap
     printf("Digite os elementos de B:\n");
     ponteiro_B = Leia_Elementos(tam_B);
-    printf("Leitura dos elementos de B feita\n");
 
     int *ponteiro_Uniao, *ponteiro_Intersec;
     int tam_Uniao, tam_Intersec;
