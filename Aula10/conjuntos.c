@@ -139,6 +139,31 @@ int *Intersec_AB(int *tam_Intersec, int tam_A, int tam_B, int *ponteiro_UA, int 
     return pont_vet_Intersec;
 }
 
+int *Diferenca_UI(int *tam_Diff, int tam_Uniao, int tam_Intersec, int *ponteiro_U, int *ponteiro_I){
+    int *ponteiro_Diff;
+    int flag = 0, tam_Diff_func=1;
+
+    ponteiro_Diff = (int *)calloc(tam_Diff_func, sizeof(int));
+
+    for (int i=0; i<tam_Uniao; i++){
+        flag = 0;
+        for (int j=0; j<tam_Intersec; j++){
+            if (ponteiro_U[i] == ponteiro_I[j]){
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0){
+            tam_Diff_func += 1;
+            ponteiro_Diff = (int *)realloc(ponteiro_Diff, tam_Diff_func*sizeof(int));
+            ponteiro_Diff[tam_Diff_func-1] = ponteiro_U[i];
+        }
+    }
+
+    *tam_Diff = tam_Diff_func;
+    return ponteiro_Diff;
+}
+
 int main(void){
     int tam_A, tam_B, *ponteiro_A, *ponteiro_B;
 
@@ -156,20 +181,23 @@ int main(void){
 
     int *ponteiro_Uniao, *ponteiro_Intersec;
     int tam_Uniao, tam_Intersec;
-
     //ponteiro_Uniao aponta para o começo do vetor Uniao na heap
     ponteiro_Uniao = Uniao_AB(&tam_Uniao, tam_A, tam_B, ponteiro_A, ponteiro_B);
     //ordenando o vetor Uniao
     Ordene_Elementos(tam_Uniao, ponteiro_Uniao);
-
     //mesma coisa, so que com o Intersec
     ponteiro_Intersec = Intersec_AB(&tam_Intersec, tam_A, tam_B, ponteiro_A, ponteiro_B);
     Ordene_Elementos(tam_Intersec, ponteiro_Intersec);
 
-    for (int i=1; i<tam_Intersec; i++){
-        printf("%d\n", ponteiro_Intersec[i]);
+    int *ponteiro_Diff;
+    int tam_Diff;
+    //ponteiro_Diff aponta para o começo do vetor Diff na heap
+    ponteiro_Diff = Diferenca_UI(&tam_Diff, tam_Uniao, tam_Intersec, ponteiro_Uniao, ponteiro_Intersec);
+    
+    printf("Diferenca:\n");
+    for (int i=1; i<tam_Diff; i++){
+        printf("%d\n", ponteiro_Diff[i]);
     }
-
 
     free(ponteiro_Uniao);
     free(ponteiro_Intersec);
