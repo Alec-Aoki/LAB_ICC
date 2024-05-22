@@ -165,45 +165,67 @@ int *Diferenca_UI(int *tam_Diff, int tam_Uniao, int tam_Intersec, int *ponteiro_
 }
 
 void Imprima_Resultados(int tam_A, int tam_B, int tam_Uniao, int tam_Diff, int *ponteiro_A, int *ponteiro_B, int *ponteiro_Uniao, int *ponteiro_Diff){
+
     printf("conjunto A: ");
-    for (int i=0; i<tam_A; i++){
-        if (i!=(tam_A-1)){
-            printf("%d ", ponteiro_A[i]);
-        }
-        else {
-            printf("%d\n", ponteiro_A[i]);
+    if (tam_A == 0){
+        printf("vazio\n");
+    }
+    else {
+        for (int i=0; i<tam_A; i++){
+            if (i!=(tam_A-1)){
+                printf("%d ", ponteiro_A[i]);
+            }
+            else {
+                printf("%d\n", ponteiro_A[i]);
+            }
         }
     }
 
     printf("conjunto B: ");
-    for (int i=0; i<tam_B; i++){
-        if (i!=(tam_B-1)){
-            printf("%d ", ponteiro_B[i]);
-        }
-        else {
-            printf("%d\n", ponteiro_B[i]);
+    if (tam_B == 0){
+        printf("vazio\n");
+    }
+    else{
+        for (int i=0; i<tam_B; i++){
+            if (i!=(tam_B-1)){
+                printf("%d ", ponteiro_B[i]);
+            }
+            else {
+                printf("%d\n", ponteiro_B[i]);
+            }
         }
     }
 
     printf("A uniao B: ");
-    for (int i=0; i<tam_Uniao; i++){
-        if (i!=(tam_Uniao-1)){
-            printf("%d ", ponteiro_Uniao[i]);
-        }
-        else {
-            printf("%d\n", ponteiro_Uniao[i]);
+    if ((tam_A == 0) && (tam_B == 0)){
+        printf("vazio\n");
+    }
+    else{
+        for (int i=0; i<tam_Uniao; i++){
+            if (i!=(tam_Uniao-1)){
+                printf("%d ", ponteiro_Uniao[i]);
+            }
+            else {
+                printf("%d\n", ponteiro_Uniao[i]);
+            }
         }
     }
 
     printf("(A uniao B) - (A interseccao B): ");
-    for (int i=1; i<tam_Diff; i++){
-        if (i!=(tam_Diff-1)){
-            printf("%d ", ponteiro_Diff[i]);
-        }
-        else {
-            printf("%d\n", ponteiro_Diff[i]);
+    if ((tam_A == 0) && (tam_B == 0)){
+        printf("vazio\n");
+    }
+    else{
+        for (int i=1; i<tam_Diff; i++){
+            if (i!=(tam_Diff-1)){
+                printf("%d ", ponteiro_Diff[i]);
+            }
+            else {
+                printf("%d\n", ponteiro_Diff[i]);
+            }
         }
     }
+    return;
 }
 
 int main(void){
