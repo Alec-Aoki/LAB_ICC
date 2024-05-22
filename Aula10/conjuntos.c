@@ -1,49 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
+    /*
+    Implemente um programa em C que leia 2 vetores (lendo o tamanho do vetor antes), os veto-
+    res s˜ao compostos por n´umeros inteiros(positivos e negativos) n˜ao ordenados, os vetores devem ser
+    compreendidos como conjuntos A e B.
+    O programa DEVE conter uma fun¸c˜ao que retorna o conjunto A uni˜ao B e outra que retorne
+    o conjunto (A uni˜ao B) - (A intersec¸c˜ao B), os vetores retornados devem ocupar somente o espa¸co
+    estritamente necess´ario. Em seguida, o programa deve imprimir os conjuntos como mostrado no
+    exemplo abaixo
 
-/*
-Implemente um programa em C que leia 2 vetores (lendo o tamanho do vetor antes), os veto-
-res s˜ao compostos por n´umeros inteiros(positivos e negativos) n˜ao ordenados, os vetores devem ser
-compreendidos como conjuntos A e B.
-O programa DEVE conter uma fun¸c˜ao que retorna o conjunto A uni˜ao B e outra que retorne
-o conjunto (A uni˜ao B) - (A intersec¸c˜ao B), os vetores retornados devem ocupar somente o espa¸co
-estritamente necess´ario. Em seguida, o programa deve imprimir os conjuntos como mostrado no
-exemplo abaixo
+    OBRIGAT ´ORIO que as duas fun¸c˜oes especificadas retornem vetores, e que esses vetores
+    ocupem somente o espa¸co utilizado.
+    • Os elementos dos conjuntos impressos devem estar ordenados.
+    • caso o conjunto seja vazio, deve ser impresso ”vazio”.
 
-OBRIGAT ´ORIO que as duas fun¸c˜oes especificadas retornem vetores, e que esses vetores
-ocupem somente o espa¸co utilizado.
-• Os elementos dos conjuntos impressos devem estar ordenados.
-• caso o conjunto seja vazio, deve ser impresso ”vazio”.
+    main:
+    -> ler tamanho dos vetores
+    -> receber comeco dos vetores em dois ponteiros diferentes
+    -> criar vetor pra uniao e interseccao
+    -> ordernar elementos da uniao e interseccao
 
-main:
--> ler tamanho dos vetores
--> receber comeco dos vetores em dois ponteiros diferentes
--> criar vetor pra uniao e interseccao
--> ordernar elementos da uniao e interseccao
+    Leia_Elementos:
+    -> calloc
+    -> retorna ponteiro para o inicio desse vetor
 
-Leia_Elementos:
--> calloc
--> retorna ponteiro para o inicio desse vetor
+    Ordene_Elementos:
+    -> bubble sort neles
+    -> usar indicies
+    -> return nada
 
-Ordene_Elementos:
--> bubble sort neles
--> usar indicies
--> return nada
+    Uniao_AB:
+    -> criar vetor Uniao
+        -> do tamamho de A
+    -> jogar A no vetor Uniao
+    -> verificar se o elemento de B ja existe em Uniao
+        -> se sim: nada
+        -> senao: add um espaço no Uniao e colocar o valor
 
-Uniao_AB:
--> criar vetor Uniao
-    -> do tamamho de A
--> jogar A no vetor Uniao
--> verificar se o elemento de B ja existe em Uniao
-    -> se sim: nada
-    -> senao: add um espaço no Uniao e colocar o valor
-
-Intersec_AB:
--> criar o vetor Intersec, tamanho 1
--> comparar A com B
-    -> se o elemento for igual: jogar ele no Intersec
-    -> senao: nada
-*/
+    Intersec_AB:
+    -> criar o vetor Intersec, tamanho 1
+    -> comparar A com B
+        -> se o elemento for igual: jogar ele no Intersec
+        -> senao: nada
+    */
 
 int *Leia_Elementos(int tam){
     int *ponteiro_Leia;
@@ -148,7 +147,7 @@ int *Diferenca_UI(int *tam_Diff, int tam_Uniao, int tam_Intersec, int *ponteiro_
     for (int i=0; i<tam_Uniao; i++){
         flag = 0;
         for (int j=0; j<tam_Intersec; j++){
-            if (ponteiro_U[i] == ponteiro_I[j]){
+            if ((ponteiro_U[i] == ponteiro_I[j]) && (ponteiro_U[i] != 0)){
                 flag = 1;
                 break;
             }
@@ -254,9 +253,10 @@ int main(void){
     //ponteiro_Diff aponta para o começo do vetor Diff na heap
     ponteiro_Diff = Diferenca_UI(&tam_Diff, tam_Uniao, tam_Intersec, ponteiro_Uniao, ponteiro_Intersec);
     
-    Imprima_Resultados(tam_A, tam_B, tam_Uniao, tam_Diff, ponteiro_A, ponteiro_B, ponteiro_Uniao, ponteiro_Diff);   
+    Imprima_Resultados(tam_A, tam_B, tam_Uniao, tam_Diff, ponteiro_A, ponteiro_B, ponteiro_Uniao, ponteiro_Diff);
 
     free(ponteiro_Uniao);
     free(ponteiro_Intersec);
+    free(ponteiro_Diff);
     return 0;
 }
