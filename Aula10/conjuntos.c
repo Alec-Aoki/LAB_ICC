@@ -112,7 +112,7 @@ int *Uniao_AB(int *tam_Uniao, int tam_A, int tam_B, int *ponteiro_UA, int *ponte
 }
 
 int *Intersec_AB(int *tam_Intersec, int tam_A, int tam_B, int *ponteiro_UA, int *ponteiro_UB){
-    int tam_Intersec_func=1;
+    int tam_Intersec_func=0;
     /*
     Intersec_AB:
     -> criar o vetor Intersec, tamanho 1
@@ -120,12 +120,15 @@ int *Intersec_AB(int *tam_Intersec, int tam_A, int tam_B, int *ponteiro_UA, int 
         -> se o elemento for igual: jogar ele no Intersec
         -> senao: nada*/
     int *pont_vet_Intersec;
-    pont_vet_Intersec = (int *)calloc(1, sizeof(int));
 
     //verificando cada elemento de B em relacao a A
     for (int i=0; i<tam_B; i++){
         for (int j=0; j<tam_A; j++){
             if (ponteiro_UB[i] == ponteiro_UA[j]) {
+                if (i==0){
+                    pont_vet_Intersec = (int *)calloc(1, sizeof(int));
+                    //não criar Intersec evita colocarmos um zero em seu começo, que é chato de tirar depois
+                }
                 tam_Intersec_func += 1;
                 pont_vet_Intersec = (int *)realloc(pont_vet_Intersec, tam_Intersec_func*sizeof(int));
                 pont_vet_Intersec[tam_Intersec_func-1] = ponteiro_UB[i];
@@ -140,19 +143,22 @@ int *Intersec_AB(int *tam_Intersec, int tam_A, int tam_B, int *ponteiro_UA, int 
 
 int *Diferenca_UI(int *tam_Diff, int tam_Uniao, int tam_Intersec, int *ponteiro_U, int *ponteiro_I){
     int *ponteiro_Diff;
-    int flag = 0, tam_Diff_func=1;
-
-    ponteiro_Diff = (int *)calloc(tam_Diff_func, sizeof(int));
+    int flag = 0, tam_Diff_func=0;
 
     for (int i=0; i<tam_Uniao; i++){
         flag = 0;
         for (int j=0; j<tam_Intersec; j++){
             if ((ponteiro_U[i] == ponteiro_I[j]) && (ponteiro_U[i] != 0)){
+                //obs: temos ponteiro_U[i] != 0 para o caso em que A ou B = vazio
+                //temos um numero igual
                 flag = 1;
                 break;
             }
         }
         if (flag == 0){
+            if (i == 0){
+                    ponteiro_Diff = (int *)calloc(1, sizeof(int));
+            }
             tam_Diff_func += 1;
             ponteiro_Diff = (int *)realloc(ponteiro_Diff, tam_Diff_func*sizeof(int));
             ponteiro_Diff[tam_Diff_func-1] = ponteiro_U[i];
@@ -164,6 +170,23 @@ int *Diferenca_UI(int *tam_Diff, int tam_Uniao, int tam_Intersec, int *ponteiro_
 }
 
 void Imprima_Resultados(int tam_A, int tam_B, int tam_Uniao, int tam_Diff, int *ponteiro_A, int *ponteiro_B, int *ponteiro_Uniao, int *ponteiro_Diff){
+    /*Temos um caso excepcional no código, que é quando A = B
+    Devido à forma como a intersecção foi feita, temos que ela sempre terá um zero em seu início
+    Para A=B, tam_A = tam_B. Se essa condição for satisfeita, teremos flag_1 = 1
+    Caso A!=B, flag_1 = 1
+    Assim, temos A = B (Uniao - Intersec = vazio) quando flag_1 = 1 e flag_2 = 0
+
+    int flag_1 = 0, flag_2 = 0;
+    if (tam_A == tam_B){
+        flag_1 = 1;
+        for (int i=0; i<tam_A; i++){
+            if (ponteiro_A[i] != ponteiro_B[i]){
+                flag_2 = 1;
+                break;
+            }
+        }
+    }
+    */
 
     printf("conjunto A: ");
     if (tam_A == 0){
@@ -215,7 +238,7 @@ void Imprima_Resultados(int tam_A, int tam_B, int tam_Uniao, int tam_Diff, int *
         printf("vazio\n");
     }
     else{
-        for (int i=1; i<tam_Diff; i++){
+        for (int i=0; i<tam_Diff; i++){
             if (i!=(tam_Diff-1)){
                 printf("%d ", ponteiro_Diff[i]);
             }
@@ -254,6 +277,12 @@ int main(void){
     ponteiro_Diff = Diferenca_UI(&tam_Diff, tam_Uniao, tam_Intersec, ponteiro_Uniao, ponteiro_Intersec);
     
     Imprima_Resultados(tam_A, tam_B, tam_Uniao, tam_Diff, ponteiro_A, ponteiro_B, ponteiro_Uniao, ponteiro_Diff);
+
+    printf("Interseccao: ");
+    for (int i=0; i<tam_Intersec; i++){
+        printf("%d ", ponteiro_Intersec[i]);
+    }
+    printf("\n");
 
     free(ponteiro_Uniao);
     free(ponteiro_Intersec);
