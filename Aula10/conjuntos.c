@@ -35,14 +35,14 @@ Uniao_AB:
     -> do tamamho de A
 -> jogar A no vetor Uniao
 -> verificar se o elemento de B ja existe em Uniao
-    -> se sim: fodase
-    -> se nao: add um espaço no Uniao e colocar o valor
+    -> se sim: nada
+    -> senao: add um espaço no Uniao e colocar o valor
 
 Intersec_AB:
--> jogar A no vetor Intersec
--> verificar se o elemento de B ja existe em Intersec
-    -> se sim: tirar do Intersec
-    -> se nao: colocar no vetor Intersec
+-> criar o vetor Intersec, tamanho 1
+-> comparar A com B
+    -> se o elemento for igual: jogar ele no Intersec
+    -> senao: nada
 */
 
 int *Leia_Elementos(int tam){
@@ -113,35 +113,26 @@ int *Uniao_AB(int *tam_Uniao, int tam_A, int tam_B, int *ponteiro_UA, int *ponte
 }
 
 int *Intersec_AB(int *tam_Intersec, int tam_A, int tam_B, int *ponteiro_UA, int *ponteiro_UB){
-    int tam_novo=tam_A;
-    int *aux;
-    //vai ser basicamente o Uniao, so mudando a logica do if else
+    int tam_Intersec_func=1;
     /*
     Intersec_AB:
-    -> jogar A no vetor Intersec
-    -> verificar se o elemento de B ja existe em Intersec
-        -> se sim: tirar do Intersec
-        -> se nao: colocar no vetor Intersec*/
+    -> criar o vetor Intersec, tamanho 1
+    -> comparar A com B
+        -> se o elemento for igual: jogar ele no Intersec
+        -> senao: nada*/
     int *pont_vet_Intersec;
-    pont_vet_Intersec = (int *)calloc(tam_A, sizeof(int));
+    pont_vet_Intersec = (int *)calloc(1, sizeof(int));
 
-    //jogando os valores de A em Intersec
-    for (int i=0; i<tam_A; i++){
-        pont_vet_Intersec[i] = ponteiro_UA[i];
-    }
-
+    //verificando cada elemento de B em relacao a A
     for (int i=0; i<tam_B; i++){
         for (int j=0; j<tam_A; j++){
-            if (ponteiro_UB[i] == pont_vet_Intersec[j]) {
-                aux = &pont_vet_Intersec[j];
-                free(aux);
-                tam_novo -= 1;
-                pont_vet_Intersec = (int *)realloc(pont_vet_Intersec, tam_novo*sizeof(int));
+            if (ponteiro_UB[i] == ponteiro_UA[j]) {
+                
             }
         }
     }
 
-    *tam_Intersec = tam_novo;
+    *tam_Intersec = tam_Intersec_func;
 
     return pont_vet_Intersec;
 }
