@@ -127,7 +127,9 @@ int *Intersec_AB(int *tam_Intersec, int tam_A, int tam_B, int *ponteiro_UA, int 
     for (int i=0; i<tam_B; i++){
         for (int j=0; j<tam_A; j++){
             if (ponteiro_UB[i] == ponteiro_UA[j]) {
-                
+                tam_Intersec_func += 1;
+                pont_vet_Intersec = (int *)realloc(pont_vet_Intersec, tam_Intersec_func*sizeof(int));
+                pont_vet_Intersec[tam_Intersec_func-1] = ponteiro_UB[i];
             }
         }
     }
@@ -164,7 +166,7 @@ int main(void){
     ponteiro_Intersec = Intersec_AB(&tam_Intersec, tam_A, tam_B, ponteiro_A, ponteiro_B);
     Ordene_Elementos(tam_Intersec, ponteiro_Intersec);
 
-    for (int i=0; i<tam_Intersec; i++){
+    for (int i=1; i<tam_Intersec; i++){
         printf("%d\n", ponteiro_Intersec[i]);
     }
 
