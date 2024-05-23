@@ -57,6 +57,7 @@ int **Aloque(int tam_Aloque){
     //criação do vetor que é a matriz em si
     int *vet;
     vet = (int *)malloc((linha*coluna)*sizeof(int));
+    //atribuição do endereço de cada coluna a cada ponteiro do vetor de ponteirsos
     for (int i=0; i<linha; i++){
         vet_pont[i] = &vet[i*coluna];
     }
@@ -83,8 +84,8 @@ int main(void){
     pont_matriz = Aloque(tam_m);
 
     //desalocação
+    free(**pont_matriz);
     free(*pont_matriz);
-    free(pont_matriz);
     *pont_matriz = NULL;
     return 0;
 }
