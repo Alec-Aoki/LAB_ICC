@@ -79,20 +79,22 @@ void Receba(int *ponteiro_Receba, int tam){
     for (int i=0; i<tam; i++){
         scanf(" %d", &ponteiro_Receba[i]);
     }
-    printf("Scanf feito\n");
-
-    for (int i=0; i<tam; i++){
-        printf("%d\n", ponteiro_Receba[i]);
-    }
-    printf("Ponteiro feito\n");
-
     return;
 }
 
-/*void Imprima(){
-
+void Imprima(int **ponteiro_Imprima, int linha, int coluna){
+    for (int i=0; i<linha; i++){
+        for (int j=0; j<coluna; j++){
+            if (j!=(coluna-1)){
+                printf("%d ", ponteiro_Imprima[i][j]);
+            }
+            else {
+                printf("%d\n", ponteiro_Imprima[i][j]);
+            }
+        }
+    }
     return;
-}*/
+}
 
 int main(void){
     int **pont_matriz, tam_m, linha, coluna;
@@ -105,6 +107,9 @@ int main(void){
 
     //leitura dos elementos da matriz:
     Receba(*pont_matriz, tam_m);
+
+    //impresão dos elementos da matriz:
+    Imprima(pont_matriz, linha, coluna);
 
     //desalocação:
 
