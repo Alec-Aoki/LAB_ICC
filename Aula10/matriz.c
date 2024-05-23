@@ -45,8 +45,8 @@ Imprima:
 return.
 */
 
-int **Aloque(int tam_Aloque){
-    int linha, coluna;
+int **Aloque(int *linha_p, int *coluna_p, int tam_Aloque){
+    int coluna, linha;
 
     //achando a raiz quadrada to tamanho da matriz
     int raiz_Aloque;
@@ -56,6 +56,8 @@ int **Aloque(int tam_Aloque){
 
     //pegando a quant. de linhas e colunas (a matriz é quadrada)
     coluna = linha = raiz_Aloque;
+    *linha_p = linha;
+    *coluna_p = coluna;
 
     //criação do vetor de ponteiros
     int **vet_pont;
@@ -73,25 +75,38 @@ int **Aloque(int tam_Aloque){
     return vet_pont;
 }
 
-/*void Receba(){
+void Receba(int *ponteiro_Receba, int tam){
+    for (int i=0; i<tam; i++){
+        scanf(" %d", &ponteiro_Receba[i]);
+    }
+    printf("Scanf feito\n");
+
+    for (int i=0; i<tam; i++){
+        printf("%d\n", ponteiro_Receba[i]);
+    }
+    printf("Ponteiro feito\n");
 
     return;
 }
 
-void Imprima(){
+/*void Imprima(){
 
     return;
 }*/
 
 int main(void){
-    int **pont_matriz, tam_m;
+    int **pont_matriz, tam_m, linha, coluna;
     //recebendo o tamanho da matriz
     scanf(" %d", &tam_m);
 
     //alocação da matriz na  heap:
-    pont_matriz = (int **)Aloque(tam_m);
+    pont_matriz = (int **)Aloque(&linha, &coluna, tam_m);
     //pont_matriz aponta para o início do vetor de ponteiros
 
-    //desalocação
+    //leitura dos elementos da matriz:
+    Receba(*pont_matriz, tam_m);
+
+    //desalocação:
+
     return 0;
 }
