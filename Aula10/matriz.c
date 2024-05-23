@@ -112,6 +112,7 @@ int main(void){
     Imprima(pont_matriz, linha, coluna);
 
     //desalocação:
-
+    free(*pont_matriz);
+    free(pont_matriz);
     return 0;
 }
