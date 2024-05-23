@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h> //vamos usar math.h para conseguir a raiz quadrada
 
 /*
 Implemente um programa em C que recebe um inteiro N que representa a quantidade de elementos
@@ -48,15 +47,24 @@ return.
 
 int **Aloque(int tam_Aloque){
     int linha, coluna;
+
+    //achando a raiz quadrada to tamanho da matriz
+    int raiz_Aloque;
+    for (int i=0; i*i <= tam_Aloque; i++){
+        raiz_Aloque = i;
+    }
+
     //pegando a quant. de linhas e colunas (a matriz é quadrada)
-    linha = coluna = sqrt(tam_Aloque);
+    coluna = linha = raiz_Aloque;
 
     //criação do vetor de ponteiros
     int **vet_pont;
     vet_pont = (int **)malloc(linha*sizeof(int *));
-    //criação do vetor que é a matriz em si
+
+    //criação do vetor grandão que é a matriz em si
     int *vet;
     vet = (int *)malloc((linha*coluna)*sizeof(int));
+
     //atribuição do endereço de cada coluna a cada ponteiro do vetor de ponteirsos
     for (int i=0; i<linha; i++){
         vet_pont[i] = &vet[i*coluna];
@@ -65,7 +73,7 @@ int **Aloque(int tam_Aloque){
     return vet_pont;
 }
 
-void Receba(){
+/*void Receba(){
 
     return;
 }
@@ -73,7 +81,7 @@ void Receba(){
 void Imprima(){
 
     return;
-}
+}*/
 
 int main(void){
     int **pont_matriz, tam_m;
@@ -81,11 +89,9 @@ int main(void){
     scanf(" %d", &tam_m);
 
     //alocação da matriz na  heap:
-    pont_matriz = Aloque(tam_m);
+    pont_matriz = (int **)Aloque(tam_m);
+    //pont_matriz aponta para o início do vetor de ponteiros
 
     //desalocação
-    free(**pont_matriz);
-    free(*pont_matriz);
-    *pont_matriz = NULL;
     return 0;
 }
