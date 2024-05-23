@@ -175,7 +175,7 @@ void Imprima_Resultados(int tam_A, int tam_B, int tam_Uniao, int tam_Diff, int *
     Para A=B, tam_A = tam_B. Se essa condição for satisfeita, teremos flag_1 = 1
     Caso A!=B, flag_1 = 1
     Assim, temos A = B (Uniao - Intersec = vazio) quando flag_1 = 1 e flag_2 = 0
-
+    */
     int flag_1 = 0, flag_2 = 0;
     if (tam_A == tam_B){
         flag_1 = 1;
@@ -186,7 +186,6 @@ void Imprima_Resultados(int tam_A, int tam_B, int tam_Uniao, int tam_Diff, int *
             }
         }
     }
-    */
 
     printf("conjunto A: ");
     if (tam_A == 0){
@@ -235,6 +234,9 @@ void Imprima_Resultados(int tam_A, int tam_B, int tam_Uniao, int tam_Diff, int *
 
     printf("(A uniao B) - (A interseccao B): ");
     if ((tam_A == 0) && (tam_B == 0)){
+        printf("vazio\n");
+    }
+    else if ((flag_1 == 1) && (flag_2 == 0)){
         printf("vazio\n");
     }
     else{
