@@ -76,9 +76,15 @@ void Imprima(){
 
 int main(void){
     int **pont_matriz, tam_m;
+    //recebendo o tamanho da matriz
     scanf(" %d", &tam_m);
 
+    //alocação da matriz na  heap:
     pont_matriz = Aloque(tam_m);
 
+    //desalocação
+    free(*pont_matriz);
+    free(pont_matriz);
+    *pont_matriz = NULL;
     return 0;
 }
