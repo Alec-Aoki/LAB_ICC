@@ -141,7 +141,7 @@ int main(void){
     scanf(" %d", &quant_de_dados);
 
     char **pont_vet_pont;
-    int tamanho_string;
+    int tamanho_string, *pont_vet_tamanho;
 
     if (quant_de_dados == 0){
         printf("Sem produtos a serem cadastrados\n");
@@ -150,6 +150,9 @@ int main(void){
     else {
         //pont_vet_pont aponta para o começo do vetor de ponteiros na heap
         pont_vet_pont = Crie_Matriz(quant_de_dados);
+
+        //pont_vet_tamanho aponta para o começo do vetor de tamanho das strings
+        pont_vet_tamanho = Crie_Vet_Tamanho(quant_de_dados);
 
         for (int i=0; i<quant_de_dados; i++){
             tamanho_string = Calcule_Tamanho();
