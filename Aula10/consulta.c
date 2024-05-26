@@ -45,6 +45,25 @@ Calcule_Tamanho(codigo); //retorna o tamanho da string em bytes
 Leia_String(tamanho_string, IP); // guarda a string no vetor
 */
 
+char **Crie_Matriz(int linhas){
+    //ponteiro para o vetor de ponteiros:
+    char **pont_vet_pont;
+    pont_vet_pont = (char **)malloc(linhas*sizeof(char *));
+    if (pont_vet_pont == NULL){
+        printf("Deu ruim no MALLOC1\n");
+    }
+
+    //vetor de char para cada ponteiro do vetor de ponteiros:
+    for (int i=0; i<linhas; i++){
+        pont_vet_pont[i] = (char *)malloc(1*sizeof(char));
+        if (pont_vet_pont[i] == NULL){
+            printf("Deu ruim no MALLOC2\n");
+        }
+    }
+
+    return pont_vet_pont;
+}
+
 int main(void){
     int quant_de_dados;
     scanf(" %d", &quant_de_dados);
@@ -53,7 +72,9 @@ int main(void){
         printf("Sem produtos a serem cadastrados\n");
     }
     else {
+        for (int i=0; i<quant_de_dados; i++){
 
+        }
     }
 
     return 0;
