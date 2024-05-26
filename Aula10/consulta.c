@@ -62,6 +62,22 @@ int Calcule_Tamanho(void){
     int codigo, tamanho_string=0;
     scanf(" %d", &codigo);
 
+    //primeiro, vamos conferir se o código em si não é primo
+    int flag_cod=0;
+    for (int i=1; i<=codigo; i++){
+        flag_cod = 0;
+        if ((codigo%i == 0) && (i!=1) && (i!=codigo)){
+            //codigo nao é primo, podemos prosseguir
+            flag_cod = 1;
+            break;
+        }
+    }
+    if (flag_cod == 0){
+        //código é primo, já sabemos o tamanho da string (é o próprio código)
+        tamanho_string = codigo;
+        return tamanho_string;
+    }
+
     /*DIVISORES PRIMOS
     Como garantir que o divisor é primo?
     Vamos começar com o divisor = 2, pois 2 é o primeiro número primo
