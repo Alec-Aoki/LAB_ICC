@@ -113,6 +113,18 @@ int Calcule_Tamanho(void){
     return tamanho_string;
 }
 
+void Leia_String(char **pont_vet_pont, int tamanho_string){
+    int IP;
+    scanf(" %d", &IP);
+
+    //realocando o espaço anteriormente reservado para um novo com o tamanho da string:
+    pont_vet_pont[IP] = (char *)realloc(pont_vet_pont[IP], tamanho_string*sizeof(char));
+
+    for(int i=0; i<tamanho_string; i++){
+        scanf(" %c", &pont_vet_pont[IP][i]);
+    }
+}
+
 int main(void){
     int quant_de_dados;
     scanf(" %d", &quant_de_dados);
@@ -129,7 +141,8 @@ int main(void){
             //pont_vet_pont aponta para o começo do vetor de ponteiros na heap
 
             tamanho_string = Calcule_Tamanho();
-            printf("%d\n", tamanho_string);
+
+            Leia_String(pont_vet_pont, tamanho_string);
         }
     }
 
