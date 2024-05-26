@@ -157,15 +157,6 @@ void Imprima_Resultado(char **pont_vet_pont, int *pont_vet_tamanho, int *pont_ve
     }
 }
 
-void Desaloque(int quant_de_dados, char ***pont_vet_pont, int **pont_vet_tamanho, int **pont_vet_codigo){
-    for (int i=0; i<quant_de_dados; ++i){
-        free((*pont_vet_pont)[i]);
-    }
-    free(*pont_vet_pont);
-    free(pont_vet_tamanho);
-    free(pont_vet_codigo);
-}
-
 int main(void){
     int quant_de_dados;
     scanf(" %d", &quant_de_dados);
@@ -197,7 +188,8 @@ int main(void){
             Leia_String(IP, pont_vet_pont, tamanho_string, pont_vet_tamanho);
         }
     }
+
     Imprima_Resultado(pont_vet_pont, pont_vet_tamanho, pont_vet_codigo, quant_de_dados);
-    Desaloque(quant_de_dados, &pont_vet_pont, &pont_vet_tamanho, &pont_vet_codigo);
+
     return 0;
 }
