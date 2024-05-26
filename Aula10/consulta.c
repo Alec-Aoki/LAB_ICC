@@ -9,9 +9,9 @@ Entrada
 2 67 i m p o r t a nt e _ l em b r ar _ d e_ c a so s _ c om _ n um e r os _ p r im o s
 
 CÓDIGO:
-54/2 = 27
-27/3 = 9
-9/11 = 0
+54/2 = 27, res 0
+27/3 = 9, res 0
+9/5 = 1, res 4 -> se res != 0, já temos nossos divisores
 2+3 = 5 bytes (5 caracteres)
 
 Saída
@@ -49,31 +49,71 @@ char **Crie_Matriz(int linhas){
     //ponteiro para o vetor de ponteiros:
     char **pont_vet_pont;
     pont_vet_pont = (char **)malloc(linhas*sizeof(char *));
-    if (pont_vet_pont == NULL){
-        printf("Deu ruim no MALLOC1\n");
-    }
 
     //vetor de char para cada ponteiro do vetor de ponteiros:
     for (int i=0; i<linhas; i++){
         pont_vet_pont[i] = (char *)malloc(1*sizeof(char));
-        if (pont_vet_pont[i] == NULL){
-            printf("Deu ruim no MALLOC2\n");
-        }
     }
 
     return pont_vet_pont;
+}
+
+int Calcule_Tamanho(void){
+    int codigo, tamanho_string=0;
+    scanf(" %d", &codigo);
+
+    /*DIVISORES PRIMOS
+    Como garantir que o divisor é primo?
+    Vamos começar com o divisor = 2, pois 2 é o primeiro número primo
+    Vamos então dividir o divisor por cada número entre 1 e ele mesmo
+    Se ele for divisível por qualquer número que não seja 1 ou ele mesmo, então ele NÃO é primo
+        Neste caso, incrementamos 1 ao divisor e checamos de novo
+    Se não acharmos nenhum número que divide o divisor, sendo esse número != de 1 e ele mesmo, então ele é primo
+    */
+
+    int flag = 0;
+    //vamos usar essa flag para ter certeza que o divisor é primo ou não
+
+    for (int divisor=2; divisor<=codigo; divisor++){
+        //teste para ver se o divisor é primo ou não
+        for (int i=1; i<=divisor; i++){
+            flag = 0;
+            if ((divisor%i == 0) && (i!=1) && (i!=divisor)){
+                //divisor não é primo, precisamos ir para o proximo divisor
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0) {
+            //nosso divisor atual é primo
+            if ((codigo%divisor) != 0){
+                //já achamos todos os divisores primos válidos
+                return tamanho_string;
+            }
+            tamanho_string += divisor;
+            codigo = codigo/divisor;
+        }
+    }
+    return tamanho_string;
 }
 
 int main(void){
     int quant_de_dados;
     scanf(" %d", &quant_de_dados);
 
+    char **pont_vet_pont;
+    int tamanho_string;
+
     if (quant_de_dados == 0){
         printf("Sem produtos a serem cadastrados\n");
     }
     else {
         for (int i=0; i<quant_de_dados; i++){
+            pont_vet_pont = Crie_Matriz(quant_de_dados);
+            //pont_vet_pont aponta para o começo do vetor de ponteiros na heap
 
+            tamanho_string = Calcule_Tamanho();
+            printf("%d\n", tamanho_string);
         }
     }
 
