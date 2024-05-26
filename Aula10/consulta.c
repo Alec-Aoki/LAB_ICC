@@ -124,7 +124,7 @@ int Calcule_Tamanho(void){
     return tamanho_string;
 }
 
-void Leia_String(char **pont_vet_pont, int tamanho_string){
+void Leia_String(char **pont_vet_pont, int tamanho_string, int *pont_vet_tamanho){
     int IP;
     scanf(" %d", &IP);
 
@@ -134,6 +134,8 @@ void Leia_String(char **pont_vet_pont, int tamanho_string){
     for(int i=0; i<tamanho_string; i++){
         scanf(" %c", &pont_vet_pont[IP][i]);
     }
+
+    pont_vet_tamanho[IP] = tamanho_string;
 }
 
 int main(void){
@@ -157,7 +159,7 @@ int main(void){
         for (int i=0; i<quant_de_dados; i++){
             tamanho_string = Calcule_Tamanho();
 
-            Leia_String(pont_vet_pont, tamanho_string);
+            Leia_String(pont_vet_pont, tamanho_string, pont_vet_tamanho);
         }
     }
 
