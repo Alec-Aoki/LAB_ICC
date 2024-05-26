@@ -43,6 +43,7 @@ Programa:
 Crie_Matriz(n); //retornar o ponteiro que aponta para o vetor de ponteiros
 Calcule_Tamanho(codigo); //retorna o tamanho da string em bytes
 Leia_String(tamanho_string, IP); // guarda a string no vetor
+Imprima_Resultado;
 */
 
 char **Crie_Matriz(int linhas){
@@ -54,8 +55,18 @@ char **Crie_Matriz(int linhas){
     for (int i=0; i<linhas; i++){
         pont_vet_pont[i] = (char *)malloc(1*sizeof(char));
     }
-
     return pont_vet_pont;
+}
+
+int *Crie_Vet_Tamanho(int quant_de_dados){
+    /* GUARDANDO O TAMANHO DAS STRINGS
+    Para imprimir os valores, vamos ter que guardar os tamanhos das string em algum lugar
+    Para tanto, iremos criar um vetor na heap que guarda esses tamanhos na mesma ordem que o vetor de ponteiros
+    Esse vetor só será usado mais adiante, mas já criaremos ele aqui
+    */
+    int *pont_vet_tamanho;
+    pont_vet_tamanho = (int *)malloc(quant_de_dados*sizeof(int));
+    return pont_vet_tamanho;
 }
 
 int Calcule_Tamanho(void){
@@ -134,12 +145,13 @@ int main(void){
 
     if (quant_de_dados == 0){
         printf("Sem produtos a serem cadastrados\n");
+        return 0;
     }
     else {
-        for (int i=0; i<quant_de_dados; i++){
-            pont_vet_pont = Crie_Matriz(quant_de_dados);
-            //pont_vet_pont aponta para o começo do vetor de ponteiros na heap
+        //pont_vet_pont aponta para o começo do vetor de ponteiros na heap
+        pont_vet_pont = Crie_Matriz(quant_de_dados);
 
+        for (int i=0; i<quant_de_dados; i++){
             tamanho_string = Calcule_Tamanho();
 
             Leia_String(pont_vet_pont, tamanho_string);
