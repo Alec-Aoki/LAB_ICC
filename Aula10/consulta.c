@@ -79,7 +79,6 @@ int *Crie_Vet_Codigo(int quant_de_dados){
 
 int Calcule_Tamanho(int *pont_vet_codigo, int IP){
     int codigo, tamanho_string=0;
-    printf("Digite o codigo:\n");
     scanf(" %d", &codigo);
 
     //guardado o codigo no vetor apropriado para usarmos depois:
@@ -131,7 +130,6 @@ int Calcule_Tamanho(int *pont_vet_codigo, int IP){
             }
         }
     }
-    printf("Tamanho: %d\n", tamanho_string);
     return tamanho_string;
 }
 
@@ -139,11 +137,13 @@ void Leia_String(int IP, char **pont_vet_pont, int tamanho_string, int *pont_vet
     //realocando o espaço anteriormente reservado para um novo com o tamanho da string:
     pont_vet_pont[IP] = (char *)realloc(pont_vet_pont[IP], tamanho_string*sizeof(char));
 
-    printf("Digite o produto:\n");
-    for(int i=0; i<tamanho_string; i++){
-        scanf(" %c", &pont_vet_pont[IP][i]);
-    }
+    scanf(" %s", pont_vet_pont[IP]);
 
+    int i=0;
+    while(pont_vet_pont[IP][i] != '\0'){
+        i++;
+    }
+    tamanho_string = i;
     pont_vet_tamanho[IP] = tamanho_string;
 }
 
@@ -157,9 +157,17 @@ void Imprima_Resultado(char **pont_vet_pont, int *pont_vet_tamanho, int *pont_ve
     }
 }
 
+void Desaloque(int quant_de_dados, char ***pont_vet_pont, int **pont_vet_tamanho, int **pont_vet_codigo){
+    for (int i=0; i<quant_de_dados; ++i){
+        free((*pont_vet_pont)[i]);
+    }
+    free(*pont_vet_pont);
+    free(pont_vet_tamanho);
+    free(pont_vet_codigo);
+}
+
 int main(void){
     int quant_de_dados;
-    printf("Digite a quantidade de dados:\n");
     scanf(" %d", &quant_de_dados);
 
     char **pont_vet_pont;
@@ -182,7 +190,6 @@ int main(void){
         for (int i=0; i<quant_de_dados; i++){
             // o IP está fora de uma função porque senão a ordem de entrada dos dados estaria zoada
             int IP;
-            printf("Digite o IP:\n");
             scanf(" %d", &IP);
 
             tamanho_string = Calcule_Tamanho(pont_vet_codigo, IP);
@@ -190,9 +197,7 @@ int main(void){
             Leia_String(IP, pont_vet_pont, tamanho_string, pont_vet_tamanho);
         }
     }
-
-    printf("Resultados:\n");
     Imprima_Resultado(pont_vet_pont, pont_vet_tamanho, pont_vet_codigo, quant_de_dados);
-
+    Desaloque(quant_de_dados, &pont_vet_pont, &pont_vet_tamanho, &pont_vet_codigo);
     return 0;
 }
